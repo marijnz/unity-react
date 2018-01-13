@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url  "http://dl.bintray.com/vigidroid/maven"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+    }
+}
+
+allprojects {
+
+    repositories {
+        maven { url "$rootDir/../node_modules/react-native/android" } // All of React Native (JS, Android binaries) is installed from npm
+        jcenter()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

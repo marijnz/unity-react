@@ -1,0 +1,62 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath 'com.android.tools.build:gradle:2.1.0'
+	}
+}
+
+allprojects {
+   repositories {
+      flatDir {
+        dirs 'libs'
+      }
+   }
+}
+
+apply plugin: 'com.android.application'
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+**DEPS**}
+
+android {
+	compileSdkVersion **APIVERSION**
+	buildToolsVersion '**BUILDTOOLS**'
+
+	defaultConfig {
+		ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+		packagingOptions {
+			exclude '/lib/arm64-v8a/libimagepipeline.so'
+			exclude '/lib/x86_64/libimagepipeline.so'
+		}
+		targetSdkVersion **TARGETSDKVERSION**
+		applicationId '**APPLICATIONID**'
+
+
+	}
+
+	lintOptions {
+		abortOnError false
+	}
+**SIGN**
+	buildTypes {
+  		debug {
+ 			minifyEnabled **MINIFY_DEBUG**
+ 			useProguard **PROGUARD_DEBUG**
+ 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'**USER_PROGUARD**
+  			jniDebuggable true
+  		}
+  		release {
+ 			minifyEnabled **MINIFY_RELEASE**
+ 			useProguard **PROGUARD_RELEASE**
+  			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'**USER_PROGUARD**
+  			**SIGNCONFIG**
+  		}
+	}
+
+}
